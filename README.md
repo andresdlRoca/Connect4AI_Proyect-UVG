@@ -13,8 +13,8 @@ WIP
 - WIP
 
 ## Board game coordinator info
-Provided by [@samuelchvez](https://github.com/samuelchvez).
-Original files along with information about the game coordinator can be found in [here](https://github.com/samuelchvez/open-1v1-board-game-coordinator) or [here](./server/open-1v1-board-game-coordinator/)
+Provided by [@samuelchvez](https://github.com/samuelchvez).  
+Original files along with further information about the game coordinator can be found in [here](https://github.com/samuelchvez/open-1v1-board-game-coordinator).
 
 ## Author  
 👤 Andrés de la Roca  
