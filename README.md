@@ -1,5 +1,5 @@
 # Connect 4 AI Project
-AI Client that plays connect 4 when connected to the game coordinator/server provided in the [server](./server/open-1v1-board-game-coordinator/) folder. 
+AI Client that plays connect 4 when connected to the game coordinator/server provided in [this repo](https://github.com/samuelchvez/open-1v1-board-game-coordinator).
 
 ## Client info
 WIP
