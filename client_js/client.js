@@ -1,5 +1,8 @@
-var socket = require('socket.io-client')('http://192.168.1.134:4000');
-var tournamentID = 142857; //10 es el de prueba
+// var socket = require('socket.io-client')('http://192.168.1.134:4000');
+// var tournamentID = 142857; //10 es el de prueba
+
+var socket = require('socket.io-client')('http://localhost:4000');
+var tournament_id = 10;
 
 console.log('Starting');
 
