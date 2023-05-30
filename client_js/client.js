@@ -1,10 +1,15 @@
 // var socket = require('socket.io-client')('http://192.168.1.134:4000');
 // var tournamentID = 142857; //10 es el de prueba
 
+
+var AI_Algorithm = require('./working_algorithm.js');
+var AI_Instance = new AI_Algorithm();
 var socket = require('socket.io-client')('http://localhost:4000');
 var tournament_id = 10;
 
 console.log('Starting');
+
+console.log(AI_Instance.get_grid());
 
 socket.on('connect', function(){
     socket.emit('signin', {
@@ -29,11 +34,14 @@ socket.on('ready', function(data){
     console.log(board);
     console.log('\n');
 
+    AI_Instance.update_grid(board);
+    AI_Instance.ai();
+    var choice = AI_Instance.previous_move;
 
     console.log('Turn ' + playerTurnID + ' playing')
 
     //Make random integer choice between 1 and 7
-    var choice = Math.floor(Math.random() * 7) + 1;
+    // var choice = Math.floor(Math.random() * 7) + 1;
 
     socket.emit('play', {
         tournament_id: tournamentID,
