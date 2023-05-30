@@ -1,18 +1,18 @@
-// var socket = require('socket.io-client')('http://192.168.1.134:4000');
-// var tournamentID = 142857; //10 es el de prueba
+// Connection to the server and playing logic
+var socket = require('socket.io-client')('http://192.168.1.134:4000');
+var tournamentID = 142857; //Server's tournament ID
 
 
-var AI_Algorithm = require('./working_algorithm.js');
+// AI Algorithm
+var AI_Algorithm = require('./working_algorithm.js'); 
 var AI_Instance = new AI_Algorithm();
-var socket = require('socket.io-client')('http://localhost:4000');
-var tournament_id = 10;
 
 console.log('Starting');
 
 console.log(AI_Instance.get_grid());
 
-socket.on('connect', function(){
-    socket.emit('signin', {
+socket.on('connect', function(){ //Connect to the server
+    socket.emit('signin', { //Sign in with the tournament id and the user id
       user_name: "AndresDLR",
       tournament_id: tournamentID,
       user_role: 'player'
@@ -20,7 +20,7 @@ socket.on('connect', function(){
   });
 
 
-socket.on('ok_signin', function(){
+socket.on('ok_signin', function(){ //Check if it's connected
     console.log("Successfully signed in!");
 });
 
@@ -30,17 +30,11 @@ socket.on('ready', function(data){
     var board = data.board;
 
     // playing logic here
-    console.log('Board');
-    console.log(board);
-    console.log('\n');
+    AI_Instance.update_grid(board); // Update grid with the board sent by the server
+    AI_Instance.ai(playerTurnID); // AI plays parameter is the player int that identifies it
+    var choice = AI_Instance.previous_move; // Get the column where the AI played
 
-    AI_Instance.update_grid(board);
-    AI_Instance.ai();
-    var choice = AI_Instance.previous_move;
-
-    console.log('Turn ' + playerTurnID + ' playing')
-
-    //Make random integer choice between 1 and 7
+    // Random choice for testing
     // var choice = Math.floor(Math.random() * 7) + 1;
 
     socket.emit('play', {
@@ -52,7 +46,7 @@ socket.on('ready', function(data){
     console.log('Turn finished')
 });
 
-socket.on('finish', function(data){
+socket.on('finish', function(data){ //Game over
     var gameID = data.game_id;
     var playerTurnID = data.player_turn_id;
     var winnerTurnID = data.winner_turn_id;
