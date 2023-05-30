@@ -29,6 +29,9 @@ socket.on('ready', function(data){
     console.log(board);
     console.log('\n');
 
+
+    console.log('Turn ' + playerTurnID + ' playing')
+
     //Make random integer choice between 1 and 7
     var choice = Math.floor(Math.random() * 7) + 1;
 
