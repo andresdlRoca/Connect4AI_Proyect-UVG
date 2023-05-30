@@ -8,7 +8,7 @@ console.log('Starting');
 
 socket.on('connect', function(){
     socket.emit('signin', {
-      user_name: "Neymainor",
+      user_name: "AndresDLR",
       tournament_id: tournamentID,
       user_role: 'player'
     });
