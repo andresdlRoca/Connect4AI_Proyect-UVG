@@ -59,6 +59,7 @@ socket.on('finish', function(data){
     var board = data.board;
     
     // TODO: Your cleaning board logic here
+    AI_Instance.clean_grid();
     
     socket.emit('player_ready', {
       tournament_id: tournamentID,

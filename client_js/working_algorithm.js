@@ -14,12 +14,28 @@ class AI_Algorithm {
     [0, 0, 0, 0, 0, 0]];
     this.past = [];
 
-    this.my_player = 0;
   }
 
   get_grid() {
     return this.grid;
   }
+
+  clean_grid() {
+    this.moves = 0;
+    this.mid_stop = false;
+    this.won = false;
+    this.previous_move = 0;
+    this.grid = [[0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0]];
+    this.past = [];
+  }
+
+
 
   make_move(player, col) {
       if (!this.won) {
@@ -38,7 +54,7 @@ class AI_Algorithm {
               this.previous_move = col;
           }
       }
-      return col; //Returning played column
+      // return col; //Returning played column
   }
 
   update_grid(new_grid) {
@@ -49,15 +65,14 @@ class AI_Algorithm {
       this.my_player = player;
   }
 
-
-  ai() {
+  ai(player_turn_id) {
       if (!(this.grid[3][5]) && (!this.grid[3][4]) && !(this.mid_stop)) {
-        make_move(2, 3);
+        make_move(player_turn_id, 3);
       } else {
         const move_scores = get_scores();
         for (let m = 0; m < move_scores.length; m++){
           if (move_scores[m] === true){
-            make_move(2,m);
+            make_move(player_turn_id,m);
             return;
           }
         }
@@ -70,15 +85,15 @@ class AI_Algorithm {
         if (maxes.includes(3)) index = 3;
         else index = maxes[~~(Math.random() * maxes.length)];
 
-        make_move(2, index);
+        make_move(player_turn_id, index);
       }
   }
 
-  computer_random() {
+  computer_random(player_turn_id) {
       if (this.moves < 42) {
         const r = Math.floor(Math.random() * 7);
         const index = this.grid[r].findIndex(y => !y);
-        index != -1 ? make_move(2, r) : computer_random();
+        index != -1 ? make_move(player_turn_id, r) : computer_random();
       }
   }
 
