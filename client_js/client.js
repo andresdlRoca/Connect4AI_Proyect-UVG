@@ -9,8 +9,6 @@ var AI_Instance = new AI_Algorithm();
 
 console.log('Starting');
 
-console.log(AI_Instance.get_grid());
-
 socket.on('connect', function(){ //Connect to the server
     socket.emit('signin', { //Sign in with the tournament id and the user id
       user_name: "AndresDLR",
