@@ -16,11 +16,7 @@ class AI_Algorithm {
 
   }
 
-  get_grid() {
-    return this.grid;
-  }
-
-  clean_grid() {
+  clean_grid() { // Clean the grid and reset variables
     this.moves = 0;
     this.mid_stop = false;
     this.won = false;
@@ -37,7 +33,7 @@ class AI_Algorithm {
 
 
 
-  make_move(player, col) {
+  make_move(player, col) { // Make a move in the grid
       if (!this.won) {
           if (this.moves === 0) { }
           const index = this.grid[col].findIndex(y => !y);
@@ -57,15 +53,11 @@ class AI_Algorithm {
       // return col; //Returning played column
   }
 
-  update_grid(new_grid) {
+  update_grid(new_grid) { // Update the grid with the board sent by the server
       this.grid = new_grid;
   }
 
-  update_player(player) {
-      this.my_player = player;
-  }
-
-  ai(player_turn_id) {
+  ai(player_turn_id) { // AI algorithm
       if (!(this.grid[3][5]) && (!this.grid[3][4]) && !(this.mid_stop)) {
         make_move(player_turn_id, 3);
       } else {
@@ -89,7 +81,7 @@ class AI_Algorithm {
       }
   }
 
-  computer_random(player_turn_id) {
+  computer_random(player_turn_id) { // Computer plays random moves (for testing)
       if (this.moves < 42) {
         const r = Math.floor(Math.random() * 7);
         const index = this.grid[r].findIndex(y => !y);
@@ -98,7 +90,7 @@ class AI_Algorithm {
   }
 
     
-  get_scores() {
+  get_scores() { // Get the scores of each move
       let move_scores = [];
       for (let c = 0; c < 7; c++) {
         let curr_score = move_score(c, [...this.grid]);
@@ -124,7 +116,7 @@ class AI_Algorithm {
       return move_scores;
   }
     
-  move_score(c, g) {
+  move_score(c, g) { // Get the score of a move
       let wins = [false, false];
       let score = 0;
       let cscore = [0, 0];
