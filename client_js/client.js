@@ -29,15 +29,26 @@ socket.on('ready', function(data){
 
     console.log("MyPlayerID:")
     console.log(playerTurnID)
-    board = board[0].map((_, colIndex) => board.map(row => row[colIndex]));
     console.log("Turn start:\n");
     console.table(board);
     console.log("\n");
 
     // playing logic here
-    AI_Instance.update_grid(board); // Update grid with the board sent by the server
-    AI_Instance.ai(playerTurnID); // AI plays parameter is the player int that identifies it
+    var rows = board.length;
+    var columns = board[0].length;
+
+    // Create a new transposed board
+    var transposedBoard = [];
+    for (var i = 0; i < columns; i++) {
+      transposedBoard[i] = [];
+      for (var j = 0; j < rows; j++) {
+        transposedBoard[i][j] = board[rows - j - 1][i];
+      }
+    }
+    board = transposedBoard;
+    AI_Instance.play(board, playerTurnID); // Play the AI
     var choice = AI_Instance.previous_move; // Get the column where the AI played
+
 
     console.log("\nAfter making move:")
     console.table(board)

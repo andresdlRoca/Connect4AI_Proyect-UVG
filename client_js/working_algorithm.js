@@ -4,7 +4,7 @@ class AI_Algorithm {
     this.moves = 0;
     this.mid_stop = false;
     this.win_size = 4;
-    // this.won = false;
+    this.won = false;
     this.previous_move = 0;
     this.grid = [[0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
@@ -21,7 +21,7 @@ class AI_Algorithm {
     this.moves = 0;
     this.mid_stop = false;
     this.win_size = 4;
-    // this.won = false;
+    this.won = false;
     this.previous_move = 0;
     this.grid = [[0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
@@ -37,15 +37,15 @@ class AI_Algorithm {
 
   make_move(player, col) { // Make a move in the grid
       if (!this.won) {
-          if (this.moves === 0) { }
           const index = this.grid[col].findIndex(y => !y);
+          // console.log(index)
           if (index != -1) {
-              // const win = this.move_score(col, [...this.grid]);
-              // if (win[1][0] && player === 1) {
-              //     this.won = true;
-              // } else if (win[1][1] && player === 2) {
-              //     this.won = true;
-              // }
+              const win = this.move_score(col, [...this.grid]);
+              if (win[1][0] && player === 1) {
+                  this.won = true;
+              } else if (win[1][1] && player === 2) {
+                  this.won = true;
+              }
               this.grid[col][index] = player;
               this.past.push([player, index, col]);
               this.moves++;
@@ -55,13 +55,15 @@ class AI_Algorithm {
       // return col; //Returning played column
   }
 
-  update_grid(new_grid) { // Update the grid with the board sent by the server
+
+  play(new_grid, player_turn_id) { // Update the grid with the board sent by the server
     this.mid_stop = true;
     this.grid = new_grid;
+    this.ai(player_turn_id);
   }
 
   ai(player_turn_id) { // AI algorithm
-      if (!(this.grid[3][5]) || (!this.grid[3][4]) || !(this.mid_stop) || (!this.grid[3][3])) {
+      if (!(this.grid[3][5]) && (!this.grid[3][4]) && !(this.mid_stop)) {
         this.make_move(player_turn_id, 3);
       } else {
         const move_scores = this.get_scores();
@@ -79,7 +81,7 @@ class AI_Algorithm {
         let index = 0;
         if (maxes.includes(3)) index = 3;
         else index = maxes[~~(Math.random() * maxes.length)];
-        console.log("Hi");
+        // console.log("Hi");
         this.make_move(player_turn_id, index);
       }
   }
