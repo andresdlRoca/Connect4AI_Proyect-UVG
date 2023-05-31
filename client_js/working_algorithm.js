@@ -62,6 +62,13 @@ class AI_Algorithm {
     this.ai(player_turn_id);
   }
 
+  unlock_movement(player_turn_id) { // Unlock the movement of the player
+    // Random from 0 to 6
+    const r = Math.floor(Math.random() * 7);
+    this.make_move(player_turn_id, r);
+    return r;
+  }
+
   ai(player_turn_id) { // AI algorithm
       if (!(this.grid[3][5]) && (!this.grid[3][4]) && !(this.mid_stop)) {
         this.make_move(player_turn_id, 3);

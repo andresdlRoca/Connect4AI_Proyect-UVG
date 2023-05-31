@@ -28,7 +28,7 @@ console.log('Starting');
 
 socket.on('connect', function(){ //Connect to the server
     socket.emit('signin', { //Sign in with the tournament id and the user id
-      user_name: "Andres",
+      user_name: "A1",
       tournament_id: tournamentID,
       user_role: 'player'
     });
@@ -69,6 +69,7 @@ socket.on('ready', function(data){
     console.log('\n');
     if (hasNoZeroes(AI_Instance.grid[choice]) ) {
       console.log(AI_Instance.grid[choice])
+      console.log("Changing this choice: " + choice);
       console.log("Unlocking Movement...");
       var choice = AI_Instance.unlock_movement(playerTurnID);
     }
