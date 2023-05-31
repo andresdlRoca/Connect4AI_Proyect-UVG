@@ -1,5 +1,5 @@
 // Connection to the server and playing logic
-var socket = require('socket.io-client')('http://192.168.1.134:4000');
+var socket = require('socket.io-client')('http://192.168.1.131:4000');
 var tournamentID = 142857; //Server's tournament ID
 
 
@@ -27,11 +27,21 @@ socket.on('ready', function(data){
     var playerTurnID = data.player_turn_id;
     var board = data.board;
 
+    console.log("MyPlayerID:")
+    console.log(playerTurnID)
+    board = board[0].map((_, colIndex) => board.map(row => row[colIndex]));
+    console.log("Turn start:\n");
+    console.table(board);
+    console.log("\n");
+
     // playing logic here
     AI_Instance.update_grid(board); // Update grid with the board sent by the server
     AI_Instance.ai(playerTurnID); // AI plays parameter is the player int that identifies it
     var choice = AI_Instance.previous_move; // Get the column where the AI played
 
+    console.log("\nAfter making move:")
+    console.table(board)
+    console.log('\n');
     // Random choice for testing
     // var choice = Math.floor(Math.random() * 7) + 1;
 
@@ -39,9 +49,9 @@ socket.on('ready', function(data){
         tournament_id: tournamentID,
         player_turn_id: playerTurnID,
         game_id: gameID,
-        movement: choice // Prueba
+        movement: choice 
     });
-    console.log('Turn finished')
+    console.log('Turn finished\n')
 });
 
 socket.on('finish', function(data){ //Game over
@@ -50,8 +60,12 @@ socket.on('finish', function(data){ //Game over
     var winnerTurnID = data.winner_turn_id;
     var board = data.board;
     
+    console.log('finishing board\n')
+    console.table(board)
     // TODO: Your cleaning board logic here
+    console.log("\nCleaning board...")
     AI_Instance.clean_grid();
+    console.log("Game finished")
     
     socket.emit('player_ready', {
       tournament_id: tournamentID,
