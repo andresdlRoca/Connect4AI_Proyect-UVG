@@ -81,7 +81,6 @@ class AI_Algorithm {
         let index = 0;
         if (maxes.includes(3)) index = 3;
         else index = maxes[~~(Math.random() * maxes.length)];
-        // console.log("Hi");
         this.make_move(player_turn_id, index);
       }
   }
